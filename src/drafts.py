@@ -48,6 +48,37 @@ def get_why_now(row):
             "candidates through direct outreach before posting publicly."
         )
 
+    # ── Phase-1 scrape signal reasons ────────────────────────────────────────
+    if row.get("internship_signal_detected"):
+        reasons.append(
+            "Internship or early-career language found on their site — "
+            "direct application opportunity confirmed."
+        )
+    elif row.get("hiring_signal_detected"):
+        # Only show hiring if internship wasn't already mentioned (avoid redundancy)
+        reasons.append(
+            "Active hiring language detected on their careers page — "
+            "team is currently expanding."
+        )
+
+    if row.get("high_growth_signal_detected"):
+        reasons.append(
+            "High-growth language detected on site — team is scaling fast "
+            "and likely needs execution-focused operators."
+        )
+
+    if row.get("early_stage_signal_detected"):
+        reasons.append(
+            "Early-stage signals detected (seed / YC / accelerator language) — "
+            "likely flexible on role scope and open to unconventional hires."
+        )
+
+    if row.get("opportunity_signal_detected") and not row.get("hiring_signal_detected"):
+        reasons.append(
+            "Growth and operations language on their site suggests an opening "
+            "for ops, automation, or GTM help even without a posted role."
+        )
+
     if not reasons:
         reasons.append(
             "Strong sector fit and watchlist priority make this a timely opportunity."

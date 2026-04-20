@@ -171,6 +171,38 @@ _ACTION_BUTTONS = [
     ("call_booked",  "Call Booked"),
 ]
 
+# Scrape signal badges: (row_column, label, bg, fg)
+_SIGNAL_BADGES = [
+    ("website_reachable",          "Site reachable",  "#e2e8f0", "#334155"),
+    ("careers_page_found",         "Careers page",    "#dce8ff", "#1a3a6c"),
+    ("hiring_signal_detected",     "Hiring",          "#dcfce7", "#166534"),
+    ("internship_signal_detected", "Internship",      "#ede9fe", "#5b21b6"),
+    ("opportunity_signal_detected","Opportunity",     "#fef9c3", "#854d0e"),
+    ("high_growth_signal_detected","High growth",     "#d1fae5", "#065f46"),
+    ("early_stage_signal_detected","Early stage",     "#dbeafe", "#1e40af"),
+    ("yc_source_checked",          "YC source",       "#fce7f3", "#9d174d"),
+]
+
+
+def _signals_section(row):
+    """
+    Return an HTML card section showing detected scrape signal badges,
+    or an empty string if no signals were detected.
+    """
+    badges = [
+        _badge(label, bg, fg)
+        for col, label, bg, fg in _SIGNAL_BADGES
+        if row.get(col)
+    ]
+    if not badges:
+        return ""
+    return (
+        '\n      <div class="card-section">'
+        '\n        <h3>Signals detected</h3>'
+        '\n        <div class="card-badges">' + " ".join(badges) + "</div>"
+        "\n      </div>"
+    )
+
 
 def _opportunity_card(rank, row, get_why_now_fn, get_who_fn, get_angle_fn, get_email_fn):
     """Return the HTML block for one opportunity card."""
@@ -184,6 +216,7 @@ def _opportunity_card(rank, row, get_why_now_fn, get_who_fn, get_angle_fn, get_e
     who_items  = "".join(f"<li>{escape(c)}</li>" for c in get_who_fn(row))
     angle_text = escape(get_angle_fn(row))
     email_text = escape(get_email_fn(row))
+    signals_html = _signals_section(row)
 
     action_btns = "\n          ".join(
         f'<button class="action-btn{" active" if s == status else ""}" '
@@ -205,7 +238,7 @@ def _opportunity_card(rank, row, get_why_now_fn, get_who_fn, get_angle_fn, get_e
           </div>
         </div>
       </div>
-
+      {signals_html}
       <div class="card-section">
         <h3>Why now</h3>
         <ul>{why_items}</ul>

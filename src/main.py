@@ -11,7 +11,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.ingest import load_watchlist, load_tracker, load_sources
-from src.signals import attach_signals
+from src.scraper import scrape_all
+from src.signals import attach_signals, attach_scrape_signals
 from src.score import rank_opportunities
 from src.drafts import get_why_now, get_who_to_contact, get_angle, generate_email
 from src.report import render_report, render_html_report
@@ -29,15 +30,30 @@ def main():
     # 1. Load data
     watchlist = load_watchlist("data/watchlist.csv")
     tracker   = load_tracker("data/outreach_tracker.csv")
-    load_sources("data/sources.yaml")   # loaded; available for future filters
+    load_sources("data/sources.yaml")
 
     print(f"\n[ingest]  {len(watchlist)} companies loaded from watchlist")
     print(f"[ingest]  {len(tracker)} entries loaded from tracker")
 
-    # 2. Attach signals (merge tracker status + add signal columns)
-    df = attach_signals(watchlist, tracker)
+    # 2. Phase-1 scraping — detect hiring and opportunity signals
+    print(f"\n[scrape]  Phase 1 — checking {len(watchlist)} companies...")
+    scrape_df = scrape_all(watchlist)
 
-    # 3. Score and rank
+    # Summarise scraping results
+    n_reach   = int(scrape_df["website_reachable"].sum())
+    n_hiring  = int(scrape_df["hiring_signal_detected"].sum())
+    n_opp     = int(scrape_df["opportunity_signal_detected"].sum())
+    n_intern  = int(scrape_df["internship_signal_detected"].sum())
+    print(
+        f"\n[scrape]  Done — {n_reach} reachable  |  "
+        f"{n_hiring} hiring  |  {n_intern} internship  |  {n_opp} opportunity signals"
+    )
+
+    # 3. Attach base signals + merge scrape signals
+    df = attach_signals(watchlist, tracker)
+    df = attach_scrape_signals(df, scrape_df)
+
+    # 4. Score and rank (now includes scrape signal bonuses)
     top = rank_opportunities(df, top_n=TOP_N)
 
     print(f"\n[score]   Top {len(top)} opportunities:")
@@ -51,13 +67,13 @@ def main():
 
     os.makedirs("outputs", exist_ok=True)
 
-    # 4a. Markdown report
+    # 5a. Markdown report
     md = render_report(top, get_why_now, get_who_to_contact, get_angle, generate_email)
     with open(MD_PATH, "w") as f:
         f.write(md)
     print(f"\n[report]  Written → {MD_PATH}")
 
-    # 4b. HTML report
+    # 5b. HTML report
     html = render_html_report(
         top,
         get_why_now,
