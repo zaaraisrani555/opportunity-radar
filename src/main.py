@@ -14,9 +14,10 @@ from src.ingest import load_watchlist, load_tracker, load_sources
 from src.signals import attach_signals
 from src.score import rank_opportunities
 from src.drafts import get_why_now, get_who_to_contact, get_angle, generate_email
-from src.report import render_report
+from src.report import render_report, render_html_report
 
-OUTPUT_PATH = "outputs/weekly_memo.md"
+MD_PATH   = "outputs/weekly_memo.md"
+HTML_PATH = "outputs/weekly_memo.html"
 TOP_N = 5  # number of opportunities to include in the memo
 
 
@@ -48,21 +49,29 @@ def main():
             f"status={row['status']}"
         )
 
-    # 4. Render report
-    report = render_report(
+    os.makedirs("outputs", exist_ok=True)
+
+    # 4a. Markdown report
+    md = render_report(top, get_why_now, get_who_to_contact, get_angle, generate_email)
+    with open(MD_PATH, "w") as f:
+        f.write(md)
+    print(f"\n[report]  Written → {MD_PATH}")
+
+    # 4b. HTML report
+    html = render_html_report(
         top,
         get_why_now,
         get_who_to_contact,
         get_angle,
         generate_email,
+        total_watchlist=len(watchlist),
+        total_tracker=len(tracker),
+        tracker_df=tracker,
     )
+    with open(HTML_PATH, "w") as f:
+        f.write(html)
+    print(f"[report]  Written → {HTML_PATH}")
 
-    # 5. Write output
-    os.makedirs("outputs", exist_ok=True)
-    with open(OUTPUT_PATH, "w") as f:
-        f.write(report)
-
-    print(f"\n[report]  Written → {OUTPUT_PATH}")
     print("\nDone.")
 
 
