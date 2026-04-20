@@ -1,0 +1,30 @@
+startup_sources:
+  - name: Y Combinator Companies
+    url: "https://www.ycombinator.com/companies"
+  - name: TechCrunch Startups
+    url: "https://techcrunch.com/category/startups/"
+
+vc_sources:
+  - name: StrictlyVC
+    url: "https://www.strictlyvc.com/"
+  - name: VC Jobs
+    url: "https://www.vcjobs.com/"
+
+sector_keywords:
+  cybersecurity:
+    - cybersecurity
+    - security
+    - fraud
+    - bot
+    - identity
+  manufacturing:
+    - manufacturing
+    - industrial
+    - robotics
+    - supply chain
+  healthtech:
+    - health
+    - healthcare
+    - medtech
+    - clinical
+    - patient

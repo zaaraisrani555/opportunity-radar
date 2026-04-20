@@ -1,0 +1,37 @@
+company,category,sector,website,careers_url,why_interested,priority,notes
+
+# --- CYBERSECURITY STARTUPS ---
+Hadrian,startup,cybersecurity,https://hadrian.io/,https://hadrian.io/careers,Offensive security and attack surface management,high,Strong interest in AI + security
+Persona,startup,cybersecurity,https://withpersona.com/,https://withpersona.com/careers,Identity infrastructure and fraud prevention,high,Relevant to trust + verification
+DataDome,startup,cybersecurity,https://datadome.co/,https://datadome.co/careers,AI bot detection and agent trust,high,Already reached out
+Tines,startup,cybersecurity,https://www.tines.com/,https://www.tines.com/careers,Security automation workflows,high,Aligned with AI automation interest
+Chainguard,startup,cybersecurity,https://www.chainguard.dev/,https://www.chainguard.dev/careers,Secure software supply chains,medium,DevSecOps angle
+
+# --- HEALTH TECH STARTUPS ---
+Headway,startup,healthtech,https://headway.co/,https://headway.co/careers,Improving mental healthcare access,high,Very relevant to Kivira
+Grow Therapy,startup,healthtech,https://growtherapy.com/,https://growtherapy.com/careers,Mental health marketplace,high,Direct competitor insight
+Nabla,startup,healthtech,https://www.nabla.com/,https://www.nabla.com/careers,AI assistant for clinicians,high,AI + healthcare workflow
+Abridge,startup,healthtech,https://www.abridge.com/,https://www.abridge.com/careers,Clinical documentation AI,high,Strong AI + healthcare fit
+Memora Health,startup,healthtech,https://memorahealth.com/,https://memorahealth.com/careers,Patient engagement automation,medium,Workflow automation
+
+# --- YC STYLE / EARLY STAGE ---
+YC Companies,startup,generalist,https://www.ycombinator.com/companies,,Source of early-stage startups,high,Will parse later
+Fellows Fund Portfolio,startup,generalist,https://fellowsfund.vc/portfolio,,Student-focused startups,medium,
+Dorm Room Fund,startup,generalist,https://www.dormroomfund.com/portfolio,,Student founders,medium,
+
+# --- NYC VC FIRMS (15) ---
+Antler,vc,generalist,https://www.antler.co/,https://www.antler.co/careers,Day-zero investing,high,Already connected
+Eniac Ventures,vc,generalist,https://eniac.vc/,,Early-stage SaaS + AI,high,
+Primary Venture Partners,vc,generalist,https://primary.vc/,,NYC early-stage leader,high,
+Lerer Hippeau,vc,generalist,https://www.lererhippeau.com/,,Consumer + media roots,high,
+Union Square Ventures,vc,generalist,https://www.usv.com/,,Iconic NYC VC,high,
+RRE Ventures,vc,generalist,https://www.rre.com/,,Longstanding NYC VC,medium,
+FirstMark Capital,vc,generalist,https://firstmark.com/,,Strong NYC network,high,
+BoxGroup,vc,generalist,https://www.boxgroup.com/,,Early checks + founder network,high,
+Human Ventures,vc,generalist,https://human.vc/,,Studio + venture hybrid,medium,
+Company Ventures,vc,generalist,https://www.companyventures.co/,,NYC early-stage,medium,
+AlleyCorp,vc,generalist,https://alleycorp.com/,,Studio model,medium,
+Boldstart Ventures,vc,cybersecurity,https://boldstart.vc/,,Enterprise + dev tools,high,Cybersecurity focus
+Work-Bench,vc,enterprise,https://www.work-bench.com/,,Enterprise + B2B,medium,
+Insight Partners,vc,growth,https://www.insightpartners.com/,,Growth stage focus,medium,
+Greycroft,vc,generalist,https://www.greycroft.com/,,Multi-stage investing,medium,
